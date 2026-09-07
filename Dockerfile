@@ -7,4 +7,4 @@ RUN pip install uv && uv sync --frozen --no-cache
 
 COPY . .
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8030", "--reload"]
+CMD ["uv", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8030", "--reload"]
