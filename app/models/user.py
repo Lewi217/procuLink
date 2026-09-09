@@ -10,7 +10,7 @@ from app.db.base import Base
 
 
 class UserRole(str, PyEnum):
-    BUYER = "BUYER"
+    MANUFACTURER = "MANUFACTURER"
     SUPPLIER = "SUPPLIER"
     ADMIN = "ADMIN"
 
@@ -25,7 +25,7 @@ class User(Base):
     role: Mapped[UserRole] = mapped_column(
         Enum(UserRole, name="user_role_enum", create_type=False),
         nullable=False,
-        default=UserRole.BUYER,
+        default=UserRole.MANUFACTURER,
     )
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)

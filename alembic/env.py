@@ -14,7 +14,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from app.core.config import settings
 from app.db.base import Base, _build_async_url
-from app.models.user import User  # Make sure models are imported so metadata is populated
+from app.models.user import User  # noqa: F401
+from app.models.catalog import CatalogItem  # noqa: F401
+from app.models.pool import Pool  # noqa: F401
+from app.models.rfq import RFQ  # noqa: F401
 
 
 # this is the Alembic Config object, which provides

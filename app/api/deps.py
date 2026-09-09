@@ -71,5 +71,5 @@ def require_roles(*roles: UserRole):
 
 
 require_admin = require_roles(UserRole.ADMIN)
-require_buyer = require_roles(UserRole.BUYER, UserRole.ADMIN)
+require_manufacturer = require_roles(UserRole.MANUFACTURER, UserRole.ADMIN)
 require_supplier = require_roles(UserRole.SUPPLIER, UserRole.ADMIN)

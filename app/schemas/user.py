@@ -8,7 +8,7 @@ from app.models.user import UserRole
 class UserBase(BaseModel):
     email: EmailStr
     full_name: str
-    role: UserRole = UserRole.BUYER
+    role: UserRole = UserRole.MANUFACTURER
 
 
 class UserCreate(UserBase):

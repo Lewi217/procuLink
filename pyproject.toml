@@ -9,6 +9,7 @@ dependencies = [
     "asyncpg>=0.31.0",
     "email-validator>=2.3.0",
     "fastapi>=0.141.1",
+    "openai>=3.8.0",
     "passlib[bcrypt]>=1.7.4",
     "psycopg2-binary>=2.9.12",
     "pydantic-settings>=2.15.0",
