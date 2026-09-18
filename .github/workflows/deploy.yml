@@ -48,9 +48,9 @@ jobs:
 
       - name: Run E2E Tests
         run: |
-          uv run python scratch/test_admin.py
-          uv run python scratch/test_catalog.py
-          uv run python scratch/test_rfq.py
+          uv run python tests/test_admin.py
+          uv run python tests/test_catalog.py
+          uv run python tests/test_rfq.py
 
   deploy:
     needs: build-and-test
