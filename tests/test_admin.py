@@ -25,13 +25,13 @@ def fetch(method, url, data=None, headers=None):
         return e.code, body
 
 def main():
-    # 1. Register a normal user (BUYER)
+    # 1. Register a normal user (MANUFACTURER)
     print("Registering normal user...")
-    user_email = f"buyer_{uuid.uuid4().hex[:8]}@example.com"
+    user_email = f"manufacturer_{uuid.uuid4().hex[:8]}@example.com"
     status, user_data = fetch("POST", f"{BASE_URL}/auth/register", data={
         "email": user_email,
-        "full_name": "Normal Buyer",
-        "role": "BUYER",
+        "full_name": "Normal Manufacturer",
+        "role": "MANUFACTURER",
         "password": "Secure123"
     })
     print("Normal User Response:", user_data)
