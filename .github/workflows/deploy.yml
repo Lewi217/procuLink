@@ -11,6 +11,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -23,7 +26,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version-file: ".python-version"
+          python-version-file: "backend/.python-version"
 
       - name: Install Dependencies
         run: uv sync --frozen --no-cache
@@ -42,7 +45,6 @@ jobs:
           AZURE_OPENAI_EMBEDDING_DEPLOYMENT: "text-embedding-3-large"
         run: |
           uv run uvicorn app.main:app --host 0.0.0.0 --port 8030 &
-          # Wait for the server to be ready
           sleep 10
           curl --retry 5 --retry-delay 2 --retry-connrefused -s http://localhost:8030/docs > /dev/null
 
