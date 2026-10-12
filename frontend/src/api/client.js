@@ -28,7 +28,21 @@ export const apiClient = async (endpoint, { method = 'GET', body, ...customConfi
     const response = await fetch(`${BASE_URL}${endpoint}`, config);
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.detail || 'Something went wrong');
+      let errorMessage = 'Something went wrong';
+      if (typeof errorData.detail === 'string') {
+        errorMessage = errorData.detail;
+      } else if (Array.isArray(errorData.detail)) {
+        errorMessage = errorData.detail
+          .map(d => (d.msg ? `${d.loc ? d.loc[d.loc.length - 1] + ': ' : ''}${d.msg}` : JSON.stringify(d)))
+          .join(', ');
+      } else if (errorData.error && typeof errorData.error === 'object' && errorData.error.message) {
+        errorMessage = errorData.error.message;
+      } else if (typeof errorData.error === 'string') {
+        errorMessage = errorData.error;
+      } else if (errorData.message) {
+        errorMessage = errorData.message;
+      }
+      throw new Error(errorMessage);
     }
     // Handle 204 No Content
     if (response.status === 204) return null;

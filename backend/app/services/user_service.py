@@ -21,8 +21,12 @@ async def register_user(db: AsyncSession, user_in: UserCreate) -> object:
             message="An account with this email address already exists.",
         )
 
-    user_data = user_in.model_dump(exclude={"password"})
-    user_data["password_hash"] = get_password_hash(user_in.password)
+    user_data = {
+        "email": user_in.email,
+        "full_name": user_in.full_name,
+        "role": user_in.role,
+        "password_hash": get_password_hash(user_in.password),
+    }
 
     user = await user_repository.create(db, user_data)
     return user

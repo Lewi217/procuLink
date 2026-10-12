@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, EmailStr, ConfigDict
+from pydantic import BaseModel, EmailStr, ConfigDict, model_validator
 from app.models.user import UserRole
 
 
@@ -13,6 +13,19 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
+    company_name: Optional[str] = None
+    phone_number: Optional[str] = None
+    company_registration_number: Optional[str] = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_input(cls, data):
+        if isinstance(data, dict):
+            if not data.get("full_name") and data.get("company_name"):
+                data["full_name"] = data["company_name"]
+            if data.get("role") and str(data["role"]).upper() == "BUYER":
+                data["role"] = UserRole.MANUFACTURER
+        return data
 
 
 class UserLogin(BaseModel):

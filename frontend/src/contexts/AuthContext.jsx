@@ -10,14 +10,13 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      // In a real app, we'd fetch the `/users/me` endpoint to get the user's details.
-      // For now, we mock the user based on token presence.
-      apiClient('/users/me')
-        .then(userData => {
-          setUser(userData);
+      apiClient('/auth/me')
+        .then(res => {
+          setUser(res.data);
         })
         .catch(() => {
           localStorage.removeItem('token');
+          setUser(null);
         })
         .finally(() => {
           setLoading(false);
@@ -28,30 +27,36 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    // FastAPI OAuth2 expects form data for token
-    const formData = new URLSearchParams();
-    formData.append('username', email);
-    formData.append('password', password);
-
     const response = await apiClient('/auth/login', {
       method: 'POST',
-      body: formData.toString(),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
+      body: { email, password }
     });
 
-    localStorage.setItem('token', response.access_token);
-    const userData = await apiClient('/users/me');
+    const token = response.data?.access_token || response.access_token;
+    localStorage.setItem('token', token);
+
+    const meRes = await apiClient('/auth/me');
+    const userData = meRes.data;
     setUser(userData);
     return userData;
   };
 
   const register = async (userData) => {
+    const payload = {
+      email: userData.email,
+      password: userData.password,
+      full_name: userData.company_name || userData.full_name || userData.email.split('@')[0],
+      role: userData.role === 'BUYER' ? 'MANUFACTURER' : (userData.role || 'MANUFACTURER'),
+      company_name: userData.company_name,
+      phone_number: userData.phone_number,
+      company_registration_number: userData.company_registration_number
+    };
+
     await apiClient('/auth/register', {
       method: 'POST',
-      body: userData
+      body: payload
     });
+
     // Auto login after registration
     return login(userData.email, userData.password);
   };
