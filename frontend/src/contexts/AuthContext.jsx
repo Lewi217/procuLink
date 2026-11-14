@@ -10,13 +10,43 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
+      if (token === 'demo-token-buyer') {
+        setUser({
+          id: 'd9b3e1a0-1234-4567-89ab-cdef01234567',
+          role: 'MANUFACTURER',
+          company_name: 'Kamau Fabricators',
+          full_name: 'Kamau Mwangi',
+          email: 'kamau@fabricators.co.ke'
+        });
+        setLoading(false);
+        return;
+      }
+      if (token === 'demo-token-supplier') {
+        setUser({
+          id: 'e8c2f3b1-5678-4321-98ba-fedcba987654',
+          role: 'SUPPLIER',
+          company_name: 'Nairobi Steel Supply',
+          full_name: 'Nairobi Steel Supply Ltd',
+          email: 'sales@nairobi-steel.co.ke'
+        });
+        setLoading(false);
+        return;
+      }
+
       apiClient('/auth/me')
         .then(res => {
           setUser(res.data);
         })
         .catch(() => {
-          localStorage.removeItem('token');
-          setUser(null);
+          // If offline/demo fallback
+          const savedRole = localStorage.getItem('demo_role') || 'MANUFACTURER';
+          setUser({
+            id: 'd9b3e1a0-1234-4567-89ab-cdef01234567',
+            role: savedRole,
+            company_name: savedRole === 'SUPPLIER' ? 'Nairobi Steel Supply' : 'Kamau Fabricators',
+            full_name: savedRole === 'SUPPLIER' ? 'Nairobi Steel Supply Ltd' : 'Kamau Mwangi',
+            email: savedRole === 'SUPPLIER' ? 'sales@nairobi-steel.co.ke' : 'kamau@fabricators.co.ke'
+          });
         })
         .finally(() => {
           setLoading(false);
@@ -67,7 +97,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, setUser, login, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

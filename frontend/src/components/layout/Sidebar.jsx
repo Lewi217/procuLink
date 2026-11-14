@@ -1,37 +1,32 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, FileText, ShoppingCart, User, Layers, BarChart2 } from 'lucide-react';
+import { LayoutGrid, FileText, Box, User, List } from 'lucide-react';
 import './Layout.css';
 
 const Sidebar = ({ role }) => {
+  const isSupplier = role === 'SUPPLIER';
+
   const buyerLinks = [
-    { to: '/buyer/overview', icon: <LayoutDashboard size={20} />, label: 'Overview' },
-    { to: '/buyer/rfqs', icon: <FileText size={20} />, label: 'RFQs' },
-    { to: '/buyer/orders', icon: <ShoppingCart size={20} />, label: 'Orders' },
-    { to: '/buyer/account', icon: <User size={20} />, label: 'Account' },
+    { to: '/buyer/overview', icon: <LayoutGrid size={18} />, label: 'Overview' },
+    { to: '/buyer/rfqs', icon: <FileText size={18} />, label: 'RFQs' },
+    { to: '/buyer/orders', icon: <Box size={18} />, label: 'Orders' },
+    { to: '/buyer/account', icon: <User size={18} />, label: 'Account' },
   ];
 
   const supplierLinks = [
-    { to: '/supplier/overview', icon: <LayoutDashboard size={20} />, label: 'Overview' },
-    { to: '/supplier/catalog', icon: <Layers size={20} />, label: 'Catalog' },
-    { to: '/supplier/demand', icon: <BarChart2 size={20} />, label: 'Demand' },
-    { to: '/supplier/account', icon: <User size={20} />, label: 'Account' },
+    { to: '/supplier/overview', icon: <LayoutGrid size={18} />, label: 'Overview' },
+    { to: '/supplier/catalog', icon: <List size={18} />, label: 'Catalog' },
+    { to: '/supplier/demand', icon: <Box size={18} />, label: 'Demand' },
+    { to: '/supplier/account', icon: <User size={18} />, label: 'Account' },
   ];
 
-  const links = role === 'SUPPLIER' ? supplierLinks : buyerLinks;
+  const links = isSupplier ? supplierLinks : buyerLinks;
 
   return (
     <aside className="sidebar">
-      <div className="sidebar-brand">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)' }}>
-          <Layers size={24} />
-          <span style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--text-main)' }}>JUMUA</span>
-        </div>
-      </div>
-      
       <div className="sidebar-section">
         <div className="sidebar-section-title">
-          {role === 'SUPPLIER' ? 'SUPPLIER WORKSPACE' : 'BUYER WORKSPACE'}
+          {isSupplier ? 'SUPPLIER WORKSPACE' : 'BUYER WORKSPACE'}
         </div>
         <nav className="sidebar-nav">
           {links.map((link) => (
@@ -48,9 +43,11 @@ const Sidebar = ({ role }) => {
       </div>
 
       <div className="sidebar-footer">
-        <a href="#" className="sidebar-footer-link">Help & support ↗</a>
-        <div style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-          Buy together.<br/>Reach bulk.
+        <a href="#help" className="sidebar-footer-link" onClick={(e) => { e.preventDefault(); alert("ProcuLink JUMUA Help Center:\nWhatsApp support: +254 700 123 456\nEmail: support@proculink.co.ke"); }}>
+          Help &amp; support ↗
+        </a>
+        <div className="sidebar-tagline">
+          BUY TOGETHER.<br />BUILD MORE.
         </div>
       </div>
     </aside>

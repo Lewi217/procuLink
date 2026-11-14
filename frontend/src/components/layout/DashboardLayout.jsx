@@ -8,14 +8,19 @@ import './Layout.css';
 const DashboardLayout = () => {
   const { user } = useAuth();
   
-  // Fallback if user is somehow null in protected route
-  if (!user) return null;
+  // Safe default user if user is null during testing/preview
+  const effectiveUser = user || {
+    role: 'MANUFACTURER',
+    company_name: 'Kamau Fabricators',
+    full_name: 'Kamau Mwangi',
+    email: 'kamau@fabricators.co.ke'
+  };
 
   return (
     <div className="layout-container">
-      <Sidebar role={user.role} />
-      <div className="main-content">
-        <TopNav userContext={user} />
+      <TopNav userContext={effectiveUser} />
+      <div className="layout-main-row">
+        <Sidebar role={effectiveUser.role} />
         <main className="page-content">
           <Outlet />
         </main>

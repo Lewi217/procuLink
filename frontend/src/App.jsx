@@ -6,8 +6,17 @@ import DashboardLayout from './components/layout/DashboardLayout';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 
-// Placeholder Pages
-const Placeholder = ({ title }) => <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>{title} Coming Soon</div>;
+// Buyer Pages
+import BuyerOverview from './pages/buyer/Overview';
+import BuyerRfqs from './pages/buyer/Rfqs';
+import BuyerOrders from './pages/buyer/Orders';
+import BuyerAccount from './pages/buyer/Account';
+
+// Supplier Pages
+import SupplierOverview from './pages/supplier/Overview';
+import SupplierCatalog from './pages/supplier/Catalog';
+import SupplierDemand from './pages/supplier/Demand';
+import SupplierAccount from './pages/supplier/Account';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -31,16 +40,16 @@ function App() {
             {/* Protected Routes inside Dashboard */}
             <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
               {/* Buyer Routes */}
-              <Route path="/buyer/overview" element={<Placeholder title="Buyer Overview" />} />
-              <Route path="/buyer/rfqs" element={<Placeholder title="RFQs" />} />
-              <Route path="/buyer/orders" element={<Placeholder title="Orders" />} />
-              <Route path="/buyer/account" element={<Placeholder title="Account" />} />
+              <Route path="/buyer/overview" element={<BuyerOverview />} />
+              <Route path="/buyer/rfqs" element={<BuyerRfqs />} />
+              <Route path="/buyer/orders" element={<BuyerOrders />} />
+              <Route path="/buyer/account" element={<BuyerAccount />} />
 
               {/* Supplier Routes */}
-              <Route path="/supplier/overview" element={<Placeholder title="Supplier Overview" />} />
-              <Route path="/supplier/catalog" element={<Placeholder title="Catalog" />} />
-              <Route path="/supplier/demand" element={<Placeholder title="Demand" />} />
-              <Route path="/supplier/account" element={<Placeholder title="Account" />} />
+              <Route path="/supplier/overview" element={<SupplierOverview />} />
+              <Route path="/supplier/catalog" element={<SupplierCatalog />} />
+              <Route path="/supplier/demand" element={<SupplierDemand />} />
+              <Route path="/supplier/account" element={<SupplierAccount />} />
             </Route>
           </Routes>
         </BrowserRouter>

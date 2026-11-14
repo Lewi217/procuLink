@@ -1,0 +1,123 @@
+/* Supplier Operations & Workspace Styles */
+.supplier-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+}
+
+/* Demand & Locked Pool Grid */
+.demand-pool-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 950px) {
+  .demand-pool-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.incoming-demand-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 650px) {
+  .incoming-demand-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.locked-pool-card {
+  background: var(--bg-surface);
+  border: 1px solid rgba(249, 115, 22, 0.4);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.locked-pool-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.locked-pool-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--text-main);
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+.locked-pool-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0.25rem 0;
+}
+
+.locked-pool-price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  font-family: monospace;
+}
+
+.locked-pool-buyers {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.locked-pool-notice {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 0.625rem;
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--primary);
+}
+
+.btn-view-pool-orders {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: auto;
+  transition: all 0.2s;
+}
+
+.btn-view-pool-orders:hover {
+  background: var(--border-color);
+  color: #FFFFFF;
+}
+
+/* Modal for Add / Edit Catalog Item */
+.catalog-modal {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  width: 100%;
+  max-width: 500px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}

@@ -72,6 +72,69 @@ const Login = () => {
           <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
             Don't have an account? <Link to="/signup" style={{ color: 'var(--primary)', fontWeight: '500' }}>Sign up</Link>
           </div>
+
+          <div style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <span style={{ fontSize: '0.6875rem', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase', textAlign: 'center', letterSpacing: '0.05em' }}>
+              Instant Demo Access
+            </span>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  const demoUser = {
+                    id: 'd9b3e1a0-1234-4567-89ab-cdef01234567',
+                    role: 'MANUFACTURER',
+                    company_name: 'Kamau Fabricators',
+                    full_name: 'Kamau Mwangi',
+                    email: 'kamau@fabricators.co.ke'
+                  };
+                  localStorage.setItem('token', 'demo-token-buyer');
+                  if (window.__setUser) window.__setUser(demoUser);
+                  navigate('/buyer/overview');
+                  window.location.reload();
+                }}
+                style={{
+                  background: 'var(--bg-surface-hover)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-main)',
+                  padding: '0.5rem',
+                  borderRadius: 'var(--radius-sm)',
+                  fontSize: '0.75rem',
+                  fontWeight: '600',
+                  cursor: 'pointer'
+                }}
+              >
+                Buyer View →
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const demoUser = {
+                    id: 'e8c2f3b1-5678-4321-98ba-fedcba987654',
+                    role: 'SUPPLIER',
+                    company_name: 'Nairobi Steel Supply',
+                    full_name: 'Nairobi Steel Supply Ltd',
+                    email: 'sales@nairobi-steel.co.ke'
+                  };
+                  localStorage.setItem('token', 'demo-token-supplier');
+                  navigate('/supplier/overview');
+                  window.location.reload();
+                }}
+                style={{
+                  background: 'var(--bg-surface-hover)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-main)',
+                  padding: '0.5rem',
+                  borderRadius: 'var(--radius-sm)',
+                  fontSize: '0.75rem',
+                  fontWeight: '600',
+                  cursor: 'pointer'
+                }}
+              >
+                Supplier View →
+              </button>
+            </div>
+          </div>
         </Card>
       </div>
     </div>
